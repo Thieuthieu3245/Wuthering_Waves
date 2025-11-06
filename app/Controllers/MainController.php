@@ -14,6 +14,6 @@ class MainController
     }
 
     public function index():void {
-        echo $this->templates->render('home',['gameName'=>'Genshin Impact']);
+        echo $this->templates->render('home',['gameName'=>'Wuthering Waves']);
     }
 }
