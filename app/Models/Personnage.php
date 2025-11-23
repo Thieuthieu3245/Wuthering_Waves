@@ -2,14 +2,16 @@
 
 namespace Models;
 
+use UnitEnum;
+
 class Personnage{
     private ?string $id;
     private string $name;
-    private string $element;
-    private string $unitclass;
-    private string $weapon;
+    private Element $element;
+    private UnitClass $unitclass;
+    private Weapon $weapon;
     private int $rarity;
-    private ?string $origin;
+    private ?Origin $origin;
     private string $urlImg;
 
     public function __construct()
@@ -18,12 +20,12 @@ class Personnage{
 
     public function createWithParameters(
         string $name,
-        string $element,
-        string $unitclass,
-        string $weapon,
+        Element $element,
+        UnitClass $unitclass,
+        Weapon $weapon,
         int $rarity,
         string $urlImg,
-        ?string $origin = null
+        ?Origin $origin = null
     ) {
         $this->name = $name;
         $this->element = $element;
@@ -58,36 +60,36 @@ class Personnage{
         return $this;
     }
 
-    public function getElement(): string
+    public function getElement(): Element
     {
         return $this->element;
     }
 
-    public function setElement(string $element): self
+    public function setElement(Element $element): self
     {
         $this->element = $element;
 
         return $this;
     }
 
-    public function getUnitclass(): string
+    public function getUnitclass(): UnitClass
     {
         return $this->unitclass;
     }
 
-    public function setUnitclass(string $unitclass): self
+    public function setUnitclass(UnitClass $unitclass): self
     {
         $this->unitclass = $unitclass;
 
         return $this;
     }
 
-    public function getWeapon(): string
+    public function getWeapon(): Weapon
     {
         return $this->weapon;
     }
 
-    public function setWeapon(string $weapon): self
+    public function setWeapon(Weapon $weapon): self
     {
         $this->weapon = $weapon;
 
@@ -106,12 +108,12 @@ class Personnage{
         return $this;
     }
 
-    public function getOrigin(): ?string
+    public function getOrigin(): ?Origin
     {
         return $this->origin;
     }
 
-    public function setOrigin(?string $origin): self
+    public function setOrigin(?Origin $origin): self
     {
         $this->origin = $origin;
 

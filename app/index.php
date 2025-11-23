@@ -2,7 +2,6 @@
 
 use League\Plates\Engine;
 use Controllers\MainController;
-use Services\PersonnageService;
 
 require_once __DIR__ . '/Helpers/Psr4AutoloaderClass.php';
 
@@ -18,6 +17,5 @@ $loader->addNamespace('\Config', '/Config');
 
 $template = new Engine(__DIR__ . '/Views');
 
-$service = new PersonnageService();
 $controller = new MainController($template);
 $controller->index();

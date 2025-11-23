@@ -1,8 +1,8 @@
 <?php
-    $this->layout('template',['title'=>'Wuthering Waves']);
+    $this->layout('template',['title'=>$gameName]);
 ?>
 <h1>Collection <?=$this->e($gameName)?></h1>
 
 <?php var_dump($listPersonnage);?>
-<?php var_dump($first);?>
-<?php var_dump($other);?>
+
+

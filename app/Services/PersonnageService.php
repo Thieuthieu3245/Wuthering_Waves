@@ -2,45 +2,81 @@
 
 namespace Services;
 
+use Models\Origin;
 use Models\Personnage;
 use Models\PersonneDAO;
+use Models\Element;
+use Models\UnitClass;
+use Models\Weapon;
 
 class PersonnageService
 {
-    private $personneDAO;
+    private PersonneDAO $personneDAO;
+    private ElementService $elementService;
+    private UnitClassService $unitClassService;
+    private OriginService $originService;
+    private WeaponService $weaponService;
 
     public function __construct() {
         $this->personneDAO = new PersonneDAO();
+        $this->elementService = new ElementService();
+        $this->unitClassService = new UnitClassService();
+        $this->originService = new OriginService();
+        $this->weaponService = new WeaponService();
     }
 
     public function getAll() : array {
-        $personnes = $this->personneDAO->getAll();
-        $listPersonnages = array_map(function ($personne) {
-            return new Personnage(
-                $personne['idPersonnage'],
-                $personne['Name'],
-                $personne['Element_'],
-                $personne['unitclass'],
-                $personne['weapon'],
-                $personne['rarity'],
-                $personne['origin'] ?? null,
-                $personne['url_image'] ?? ''
-            );
-        }, $personnes);
+        $data = $this->personneDAO->getAll();
+        $listPersonnages = [];
+        foreach($data as $personnage) {
+            if(!$personnage) continue;
+
+            $weapon = $this->weaponService->getWeaponById($personnage['idWeapon']);
+            $element = $this->elementService->getElementById($personnage['idElement']);
+            $unitClass = $this->unitClassService->getUnitClassById($personnage['idUnitClass']);
+            $origin = $personnage['idOrigin'] ? $this->originService->getOriginById($personnage['idOrigin']) : null;
+
+            $listPersonnages[] = $this->hydrate($personnage, $element, $origin, $unitClass, $weapon);
+        }
         return $listPersonnages;
     }
 
     public function getById(string $id) : ?Personnage{
         $data = $this->personneDAO->getById($id);
         if(!$data) return null;
+
+        $weapon = $this->weaponService->getWeaponById($data['idWeapon']);
+        $element = $this->elementService->getElementById($data['idElement']);
+        $unitClass = $this->unitClassService->getUnitClassById($data['idUnitClass']);
+        $origin = $data['idOrigin'] ? $this->originService->getOriginById($data['idOrigin']) : null;
+        
+        return $this->hydrate($data, $element, $origin, $unitClass, $weapon);
+    }
+
+    public function create(Personnage $personnage) : bool {
+        $personnage->setId(uniqid());
+        return $this->personneDAO->create($personnage);
+    }
+
+    public function delete(string $id) : bool {
+        if(!$id) return false;
+        return $this->personneDAO->delete($id);
+    }
+
+    public function edit(Personnage $personnage) : bool {
+        if(!$personnage->getId()) return false;
+        return $this->personneDAO->edit($personnage);
+    }
+
+    private function hydrate(array $data, Element $element, ?Origin $origin, UnitClass $unitClass, Weapon $weapon) : Personnage {
         return new Personnage(
             $data['idPersonnage'],
             $data['Name'],
-            $data['Element_'],
-            $data['unitclass'],
-            $data['weapon'],
+            $element,
+            $unitClass,
+            $weapon,
             $data['rarity'],
-            $data['origin'] ?? null,
+            $origin,
             $data['url_image'] ?? ''
         );
     }

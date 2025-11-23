@@ -8,6 +8,7 @@ use Services\PersonnageService;
 
 class MainController 
 {
+    public string $GAME_NAME = 'Wuthering Waves';
     private Engine $templates;
     private PersonnageService $service;
     
@@ -18,10 +19,8 @@ class MainController
 
     public function index():void {
         echo $this->templates->render('home',[
-            'gameName'=>'Wuthering Waves',
-            'listPersonnage'=>$this->service->getAll(),
-            'first'=>$this->service->getById("1"),
-            'other'=>$this->service->getById('sifnspfijnspi')
+            'gameName' => $this->GAME_NAME,
+            'listPersonnage' => $this->service->getAll()
         ]);
     }
 }
