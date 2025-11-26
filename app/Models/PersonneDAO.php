@@ -11,7 +11,7 @@ class PersonneDAO extends BasePDODAO {
      * @return array All personnages
      */
     public function getAll() : array{
-        $sql = "SELECT * FROM personnage";
+        $sql = "SELECT * FROM Personnage";
         $stmt = $this->execRequest($sql);
         return $stmt->fetchAll();
     }
@@ -22,7 +22,7 @@ class PersonneDAO extends BasePDODAO {
      * @return array The personnage
      */
     public function getById(string $id) : array{
-        $sql = "SELECT * FROM personnage WHERE idPersonnage = ?";
+        $sql = "SELECT * FROM Personnage WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt->fetch();
     }
@@ -33,7 +33,7 @@ class PersonneDAO extends BasePDODAO {
      * @return bool True if the personnage has been edited, false otherwise
      */
     public function edit(Personnage $personnage) : bool {
-        $sql = "UPDATE personnage SET Name = ?, idElement = ?, idUnitCLass = ?, idWeapon = ?, rarity = ?, idOrigin = ?, url_image = ? WHERE idPersonnage = ?";
+        $sql = "UPDATE Personnage SET Name = ?, idElement = ?, idUnitCLass = ?, idWeapon = ?, rarity = ?, idOrigin = ?, url_image = ? WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [
             $personnage->getName(),
             $personnage->getElement()->getId(),
@@ -53,7 +53,7 @@ class PersonneDAO extends BasePDODAO {
      * @return bool True, the personnage has been created, false otherwise
      */
     public function create(Personnage $personnage) : bool {
-        $sql = "INSERT INTO personnage (idPersonnage, Name, idElement, idUnitCLass, idWeapon, rarity, idOrigin, url_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Personnage (idPersonnage, Name, idElement, idUnitCLass, idWeapon, rarity, idOrigin, url_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $personnage->getId(),
             $personnage->getName(),
@@ -73,7 +73,7 @@ class PersonneDAO extends BasePDODAO {
      * @return bool True, the personnage has been deleted, false otherwise
      */
     public function delete(string $id) : bool {
-        $sql = "DELETE FROM personnage WHERE idPersonnage = ?";
+        $sql = "DELETE FROM Personnage WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt !== false;
     }

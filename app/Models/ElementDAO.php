@@ -11,7 +11,7 @@ class ElementDAO extends BasePDODAO{
      * @return array All elements_
      */
     public function getAll() : array{
-        $sql = "SELECT * FROM element_";
+        $sql = "SELECT * FROM Element_";
         $stmt = $this->execRequest($sql);
         return $stmt->fetchAll();
     }
@@ -22,7 +22,7 @@ class ElementDAO extends BasePDODAO{
      * @return array The element
      */
     public function getById(string $id) : array {
-        $sql = "SELECT * FROM element_ WHERE idElement = ?";
+        $sql = "SELECT * FROM Element_ WHERE idElement = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt->fetch();
     }
@@ -33,7 +33,7 @@ class ElementDAO extends BasePDODAO{
      * @return bool True, the element has been deleted, false otherwise
      */
     public function delete(string $id) : bool {
-        $sql = "DELETE FROM element_ WHERE idElement = ?";
+        $sql = "DELETE FROM Element_ WHERE idElement = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt !== false;
     }
@@ -44,7 +44,7 @@ class ElementDAO extends BasePDODAO{
      * @return bool True, the element has been created, false otherwise
      */
     public function create(Element $element) : bool {
-        $sql = "INSERT INTO element_ (idElement, Name, color, url_image) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Element_ (idElement, Name, color, url_image) VALUES (?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $element->getId(),
             $element->getColor(),
@@ -60,7 +60,7 @@ class ElementDAO extends BasePDODAO{
      * @return bool True if the element has been edited, false otherwise
      */
     public function edit(Element $element) : bool {
-        $sql = "UPDATE element_ SET Name = ?, url_image = ?, color = ? WHERE idElement = ?";
+        $sql = "UPDATE Element_ SET Name = ?, url_image = ?, color = ? WHERE idElement = ?";
         $stmt = $this->execRequest($sql, [
             $element->getName(),
             $element->getColor(),

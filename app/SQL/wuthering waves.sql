@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Users (
    idUser VARCHAR(50) PRIMARY KEY,
    username VARCHAR(50) NOT NULL,
    hash_pwd VARCHAR(60) NOT NULL
-)
+);
 
 -- Elements
 INSERT INTO Element_ (idElement, Name, color, url_image) VALUES

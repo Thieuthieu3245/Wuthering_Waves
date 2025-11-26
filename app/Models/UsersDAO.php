@@ -11,7 +11,7 @@ class UsersDAO extends BasePDODAO{
      * @return array All users in the database.
      */
     public function getAll() : array {
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM Users";
         $stmt = $this->execRequest($sql);
         return $stmt->fetchAll();
     }
@@ -22,7 +22,7 @@ class UsersDAO extends BasePDODAO{
      * @return array The user with the given id.
      */
     public function getById($id) : array {
-        $sql = "SELECT * FROM users WHERE id = :id";
+        $sql = "SELECT * FROM Users WHERE id = :id";
         $stmt = $this->execRequest($sql, ['id' => $id]);
         return $stmt->fetch();
     }
@@ -33,7 +33,7 @@ class UsersDAO extends BasePDODAO{
      * @return array The user with the given username.
      */
     public function getByUsername($username) : array {
-        $sql = "SELECT * FROM users WHERE username = :username";
+        $sql = "SELECT * FROM Users WHERE username = :username";
         $stmt = $this->execRequest($sql, ['username' => $username]);
         return $stmt->fetch();
     }
