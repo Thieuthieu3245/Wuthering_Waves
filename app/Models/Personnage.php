@@ -2,8 +2,6 @@
 
 namespace Models;
 
-use UnitEnum;
-
 class Personnage{
     private ?string $id;
     private string $name;
@@ -14,19 +12,17 @@ class Personnage{
     private ?Origin $origin;
     private string $urlImg;
 
-    public function __construct()
-    {
-    }
-
-    public function createWithParameters(
+    public function __construct(
+        ?string $id,
         string $name,
         Element $element,
         UnitClass $unitclass,
         Weapon $weapon,
         int $rarity,
         string $urlImg,
-        ?Origin $origin = null
-    ) {
+        ?Origin $origin = null)
+    {
+        $this->id = $id;
         $this->name = $name;
         $this->element = $element;
         $this->unitclass = $unitclass;

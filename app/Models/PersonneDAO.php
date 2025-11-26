@@ -35,14 +35,12 @@ class PersonneDAO extends BasePDODAO {
     public function edit(Personnage $personnage){
         $sql = "UPDATE personnage SET Name = ?, idElement = ?, idUnitCLass = ?, idWeapon = ?, rarity = ?, idOrigin = ?, url_image = ? WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [
-            $personnage->getId(),
             $personnage->getName(),
             $personnage->getElement()->getId(),
             $personnage->getUnitclass()->getId(),
             $personnage->getWeapon()->getId(),
             $personnage->getRarity(),
             $personnage->getOrigin()->getId() ?? null,
-            $personnage->getUrlImg()
         ]);
         return $stmt !== false;
     }
@@ -53,7 +51,7 @@ class PersonneDAO extends BasePDODAO {
      * @return bool True, the personnage has been created, false otherwise
      */
     public function create(Personnage $personnage){
-        $sql = "INSERT INTO personnage (idPersonnage, Name, idElement, idUnitCLass, idWeapon, rarity, idOrigin, url_image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO personnage (idPersonnage, Name, idElement, idUnitCLass, idWeapon, rarity, idOrigin, url_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $personnage->getId(),
             $personnage->getName(),

@@ -25,10 +25,12 @@ class Router {
 
     private function createControllerList() {
         $this->ctrlList["main"] = new MainController($this->template);
+        $this->ctrlList["perso"] = new PersoController($this->template);
     }
 
     private function createRouteList() {
         $this->routeList["index"] = new RouteIndex($this->ctrlList["main"]);
+        $this->routeList["add-perso"] = new RouteAddPerso($this->ctrlList["perso"]);
     }
 
     public function routing($get, $post) {

@@ -13,7 +13,7 @@ class UnitClassService{
         $this->unitClassDAO = new UnitClassDAO();
     }
 
-    public function getAllUnitClasss() {
+    public function getAllUnitClasses() {
         $data = $this->unitClassDAO->getAll();
         return array_map([$this, 'hydrate'], $data);
     }
