@@ -3,17 +3,17 @@
 namespace Models;
 
 class UnitClass {
-    public string $id;
+    public ?string $id;
     public string $name;
     public string $urlImg;
 
-    public function __construct(string $id, string $name, string $urlImg) {
+    public function __construct(?string $id, string $name, string $urlImg) {
         $this->id = $id;
         $this->name = $name;
         $this->urlImg = $urlImg;
     }
 
-    public function getId() : string { return $this->id; }
+    public function getId() : ?string { return $this->id; }
     public function getName() : string { return $this->name; }
     public function getUrlImg() : string { return $this->urlImg; }
 

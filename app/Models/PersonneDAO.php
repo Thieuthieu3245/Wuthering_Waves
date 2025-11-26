@@ -10,7 +10,7 @@ class PersonneDAO extends BasePDODAO {
      * Return all personnages
      * @return array All personnages
      */
-    public function getAll(){
+    public function getAll() : array{
         $sql = "SELECT * FROM personnage";
         $stmt = $this->execRequest($sql);
         return $stmt->fetchAll();
@@ -21,7 +21,7 @@ class PersonneDAO extends BasePDODAO {
      * @param string $id The id of the personnage
      * @return array The personnage
      */
-    public function getById(string $id){
+    public function getById(string $id) : array{
         $sql = "SELECT * FROM personnage WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt->fetch();
@@ -32,7 +32,7 @@ class PersonneDAO extends BasePDODAO {
      * @param Personnage $personnage The personnage to edit
      * @return bool True if the personnage has been edited, false otherwise
      */
-    public function edit(Personnage $personnage){
+    public function edit(Personnage $personnage) : bool {
         $sql = "UPDATE personnage SET Name = ?, idElement = ?, idUnitCLass = ?, idWeapon = ?, rarity = ?, idOrigin = ?, url_image = ? WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [
             $personnage->getName(),
@@ -52,7 +52,7 @@ class PersonneDAO extends BasePDODAO {
      * @param Personnage $personnage The personnage to create
      * @return bool True, the personnage has been created, false otherwise
      */
-    public function create(Personnage $personnage){
+    public function create(Personnage $personnage) : bool {
         $sql = "INSERT INTO personnage (idPersonnage, Name, idElement, idUnitCLass, idWeapon, rarity, idOrigin, url_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $personnage->getId(),
@@ -72,7 +72,7 @@ class PersonneDAO extends BasePDODAO {
      * @param string $id The id of the personnage to delete
      * @return bool True, the personnage has been deleted, false otherwise
      */
-    public function delete(string $id){
+    public function delete(string $id) : bool {
         $sql = "DELETE FROM personnage WHERE idPersonnage = ?";
         $stmt = $this->execRequest($sql, [$id]);
         return $stmt !== false;

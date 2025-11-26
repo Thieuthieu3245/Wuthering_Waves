@@ -19,19 +19,19 @@ enum Color: string {
 }
 
 class Element{
-    private string $id;
+    private ?string $id;
     private string $name;
     private Color $color;
     private string $urlImg;
 
-    public function __construct(string $id, string $name, Color $color, string $urlImg){
+    public function __construct(?string $id, string $name, Color $color, string $urlImg){
         $this->id = $id;
         $this->name = $name;
         $this->color = $color;
         $this->urlImg = $urlImg;
     }
 
-    public function getId() : string { return $this->id; }
+    public function getId() : ?string { return $this->id; }
     public function getName() : string { return $this->name; }
     public function getColor() : Color { return $this->color; }
     public function getUrlImg() : string { return $this->urlImg; }

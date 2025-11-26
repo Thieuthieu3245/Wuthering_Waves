@@ -13,26 +13,75 @@ class UnitClassService{
         $this->unitClassDAO = new UnitClassDAO();
     }
 
-    public function getAllUnitClasses() {
+    /**
+     * Returns all unit classes from the database.
+     * @return array All unit classes from the database.
+     */
+    public function getAllUnitClasses() : array {
         $data = $this->unitClassDAO->getAll();
         return array_map([$this, 'hydrate'], $data);
     }
 
-    public function getUnitClassById($id) {
-        $data = $this->unitClassDAO->getById($id);
-        return $this->hydrate($data);
+    /**
+     * Retrieves a unit class by its id from the database.
+     * @param string $id The id of the unit class to retrieve.
+     * @return UnitClass The unit class with the given id.
+     * @throws \Exception If the unit class cannot be found in the database.
+     */
+    public function getUnitClassById($id) : UnitClass {
+        try{
+            $data = $this->unitClassDAO->getById($id);
+            $unitClass = $this->hydrate($data);
+        } catch (\Exception $e) {
+            throw new \Exception("L'unit class n'a pas pu étre chargé", 1);
+        }
+        return $unitClass;
     }
 
-    public function deleteUnitClass($id) {
-        return $this->unitClassDAO->delete($id);
+    /**
+     * Deletes a unit class from the database.
+     * @param string $id The id of the unit class to delete
+     * @return bool True if the unit class has been deleted, false otherwise
+     * @throws \Exception If an error occurs during the deletion
+     */
+    public function deleteUnitClass($id) : bool {
+        try{
+            $result = $this->unitClassDAO->delete($id);
+        } catch (\Exception $e) {
+            throw new \Exception("L'unit class n'a pas pu étre supprimé", 1);
+        }
+        return $result;
     }
 
-    public function createUnitClass(UnitClass $UnitClass) {
-        return $this->unitClassDAO->create($UnitClass);
+    /**
+     * Creates a unit class in the database.
+     * @param UnitClass $UnitClass The unit class to create
+     * @return bool True if the unit class has been created, false otherwise
+     * @throws \Exception If an error occurs during the creation
+     */
+    public function createUnitClass(UnitClass $UnitClass) : bool {
+        try{
+            $UnitClass->setId(uniqid());
+            $result = $this->unitClassDAO->create($UnitClass);
+        } catch (\Exception $e) {
+            throw new \Exception("L'unit class n'a pas pu étre créé", 1);
+        }
+        return $result;
     }
 
-    public function editUnitClass(UnitClass $UnitClass) {
-        return $this->unitClassDAO->edit($UnitClass);
+    /**
+     * Modifies a unit class in the database.
+     * @param UnitClass $UnitClass The unit class to modify
+     * @return bool True if the unit class has been modified, false otherwise
+     * @throws \Exception If an error occurs during the modification
+     */
+    public function editUnitClass(UnitClass $UnitClass) : bool {
+        try{
+            $result = $this->unitClassDAO->edit($UnitClass);
+        } catch (\Exception $e) {
+            throw new \Exception("L'unit class n'a pas pu étre modifié", 1);
+        }
+        return $result;
     }
 
     private function hydrate(array $data) : UnitClass {

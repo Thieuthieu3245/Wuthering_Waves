@@ -35,7 +35,20 @@ class PersoController
         $this->unitclassService = new UnitClassService();
     }
 
-    public function displayAddPerso(?string $id = null) {
+    /**
+     * Redirect to the main page of the website
+     * @param Message $message The message to display (optional)
+     */
+    public function index(?Message $message = null) {
+        $this->controller->index($message);
+    }
+
+    /**
+     * Get the informations to display in the add personnage page
+     * @param string $id The id of the personnage to display (optional)
+     * @param Message $message The message to display (optional)
+     */
+    public function displayAddPerso(?string $id = null, ?Message $message = null) {
         $elements = $this->elementService->getAllElements();
         $weapons  = $this->weaponService->getAllWeapons();
         $origins  = $this->originService->getAllOrigins();
@@ -50,19 +63,23 @@ class PersoController
             'listWeapons'  => $weapons,
             'listOrigins'  => $origins,
             'listClasses'  => $unitclasses,
-            'perso' => $perso
             'perso' => $perso,
             'message' => $message
         ]);
     }
 
+    /**
+     * Ajouter un personnage
+     * @param string $name Le nom du personnage
+     * @param string $element L'id de l'élement du personnage
+     * @param string $unitclass L'id de la classe d'unit du personnage
+     * @param string $weapon L'id de l'arme du personnage
+     * @param int $rarity La rarete du personnage
+     * @param string $urlImg L'url de l'image du personnage
+     * @param string|null $origin L'id de l'origine du personnage (facultatif)
+     * @throws \Throwable Si une erreur se produit lors de l'ajout
+     */
     public function addPerso(string $name, string $element, string $unitclass, string $weapon, int $rarity, string $urlImg, ?string $origin = null) {
-        $element = $this->elementService->getElementById($element);
-        $unitclass = $this->unitclassService->getUnitClassById($unitclass);
-        $weapon = $this->weaponService->getWeaponById($weapon);
-        $origin = $origin ? $this->originService->getOriginById($origin) : null;
-
-        $perso = new Personnage(null, $name, $element, $unitclass, $weapon, $rarity, $urlImg, $origin);
         try{
             LogService::addLog(LogService::INFO, "Essai d'ajout d'un personnage");
             $element = $this->elementService->getElementById($element);
@@ -87,20 +104,22 @@ class PersoController
             $this->displayAddPerso(null, $message);
         }
 
-        $this->persoService->create($perso);
-        $this->controller->index();
     }
 
+    /**
+     * Modify a personnage
+     * @param string $id The id of the personnage
+     * @param string $name The name of the personnage
+     * @param string $element The id of the element of the personnage
+     * @param string $unitclass The id of the unit class of the personnage
+     * @param string $weapon The id of the weapon of the personnage
+     * @param int $rarity The rarity of the personnage
+     * @param string $urlImg The url of the image of the personnage
+     * @param string $origin The id of the origin of the personnage
+     * @throws \Throwable If an error occurs during the modification
+     */
     public function editPerso(string $id, string $name, string $element, string $unitclass, string $weapon, int $rarity, string $urlImg, ?string $origin = null) {
-        $element = $this->elementService->getElementById($element);
-        $unitclass = $this->unitclassService->getUnitClassById($unitclass);
-        $weapon = $this->weaponService->getWeaponById($weapon);
-        $origin = $origin ? $this->originService->getOriginById($origin) : null;
-
-        $perso = new Personnage($id, $name, $element, $unitclass, $weapon, $rarity, $urlImg, $origin);
         try {
-            $this->persoService->edit($perso);
-            $this->controller->index();
             LogService::addLog(LogService::INFO, "Essai de modification d'un personnage");
             $element = $this->elementService->getElementById($element);
             $unitclass = $this->unitclassService->getUnitClassById($unitclass);
@@ -119,15 +138,17 @@ class PersoController
                 $this->displayAddPerso($id, $message);
             }
         } catch (\Throwable $th) {
-            throw $th;
             $message = new Message($th->getMessage(), Message::MESSAGE_COLOR_ERROR, "Echec");
             $this->displayAddPerso($id, $message);
         }
     }
 
+    /**
+     * Call the service to delete a personnage
+     * @param string $id The id of the personnage to delete
+     * @throws \Throwable If an error occurs during the deletion
+     */
     public function deletePerso(string $id) {
-        $this->persoService->delete($id);
-        $this->controller->index();
         try {
             $result = $this->persoService->delete($id);
             if($result){

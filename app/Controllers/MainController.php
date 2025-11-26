@@ -18,7 +18,12 @@ class MainController
         $this->service = new PersonnageService();
     }
 
-    public function index():void {
+    /**
+     * Affiche la page d'accueil avec la liste des personnages
+     * @param Message|null $message Le message a afficher en haut de page
+     * @return void
+     */
+    public function index(?Message $message = null):void {
         $listPersonnages = $this->service->getAll();
         echo $this->templates->render('home',[
             'gameName' => $this->GAME_NAME,

@@ -25,47 +25,102 @@ class PersonnageService
         $this->weaponService = new WeaponService();
     }
 
+    /**
+     * Return all personnages
+     * @return array All personnages
+     */
     public function getAll() : array {
-        $data = $this->personneDAO->getAll();
-        $listPersonnages = [];
-        foreach($data as $personnage) {
-            if(!$personnage) continue;
+        try{
+            $data = $this->personneDAO->getAll();
+            $listPersonnages = [];
+            foreach($data as $personnage) {
+                if(!$personnage) continue;
 
-            $weapon = $this->weaponService->getWeaponById($personnage['idWeapon']);
-            $element = $this->elementService->getElementById($personnage['idElement']);
-            $unitClass = $this->unitClassService->getUnitClassById($personnage['idUnitClass']);
-            $origin = $personnage['idOrigin'] ? $this->originService->getOriginById($personnage['idOrigin']) : null;
+                $weapon = $this->weaponService->getWeaponById($personnage['idWeapon']);
+                $element = $this->elementService->getElementById($personnage['idElement']);
+                $unitClass = $this->unitClassService->getUnitClassById($personnage['idUnitClass']);
+                $origin = $personnage['idOrigin'] ? $this->originService->getOriginById($personnage['idOrigin']) : null;
 
-            $listPersonnages[] = $this->hydrate($personnage, $element, $origin, $unitClass, $weapon);
+                $listPersonnages[] = $this->hydrate($personnage, $element, $origin, $unitClass, $weapon);
+            }
+        }
+        catch(\Exception $e) {
+            throw new \Exception("La liste des personnages n'a pas pu étre chargé", 1);
         }
         return $listPersonnages;
     }
 
+    /**
+     * Return a personnage by its id
+     * @param string $id The id of the personnage
+     * @return Personnage The personnage
+     * @throws \Exception If an error occurs during the retrieval
+     */
     public function getById(string $id) : ?Personnage{
-        $data = $this->personneDAO->getById($id);
-        if(!$data) return null;
+        try{
+            $data = $this->personneDAO->getById($id);
+            if(!$data) return null;
+    
+            $weapon = $this->weaponService->getWeaponById($data['idWeapon']);
+            $element = $this->elementService->getElementById($data['idElement']);
+            $unitClass = $this->unitClassService->getUnitClassById($data['idUnitClass']);
+            $origin = $data['idOrigin'] ? $this->originService->getOriginById($data['idOrigin']) : null;
 
-        $weapon = $this->weaponService->getWeaponById($data['idWeapon']);
-        $element = $this->elementService->getElementById($data['idElement']);
-        $unitClass = $this->unitClassService->getUnitClassById($data['idUnitClass']);
-        $origin = $data['idOrigin'] ? $this->originService->getOriginById($data['idOrigin']) : null;
+            $personnage = $this->hydrate($data, $element, $origin, $unitClass, $weapon);
+        } catch(\Exception $e) {
+            throw new \Exception("Le personnage n'a pas pu étre chargé", 1);
+        }
         
-        return $this->hydrate($data, $element, $origin, $unitClass, $weapon);
+        return $personnage;
     }
 
+    
+    /**
+     * Function to create a personnage
+     * @param string $personname The personnage to create
+     * @return bool True if the personnage has been created, false otherwise
+     */
     public function create(Personnage $personnage) : bool {
-        $personnage->setId(uniqid());
-        return $this->personneDAO->create($personnage);
+        try{
+            $personnage->setId(uniqid());
+            $result = $this->personneDAO->create($personnage);
+        }
+        catch(\Exception $e) {
+            throw new \Exception("Le personnage n'a pas pu étre créé", 1);
+        }
+        return $result;
     }
 
+    /**
+     * Deletes a personnage from the database
+     * @param string $id The id of the personnage
+     * @return bool True if the personnage has been deleted, false otherwise
+     * @throws \Exception If an error occurs during the deletion
+     */
     public function delete(string $id) : bool {
-        if(!$id) return false;
-        return $this->personneDAO->delete($id);
+        try{
+            $result = $this->personneDAO->delete($id);
+        }
+        catch(\Exception $e) {
+            throw new \Exception("Le personnage n'a pas pu étre modifié", 1);
+        }
+        return $result;
     }
 
+    /**
+     * Modifies a personnage in the database
+     * @param string $personname The personnage to modify
+     * @return bool True if the personnage has been modified, false otherwise
+     * @throws \Exception If an error occurs during the modification
+     */
     public function edit(Personnage $personnage) : bool {
-        if(!$personnage->getId()) throw new \Exception("Personnage must have an id");
-        return $this->personneDAO->edit($personnage);
+        try{
+            $result = $this->personneDAO->create($personnage);
+        }
+        catch(\Exception $e) {
+            throw new \Exception("Le personnage n'a pas pu étre modifié", 1);
+        }
+        return $result;
     }
 
     private function hydrate(array $data, Element $element, ?Origin $origin, UnitClass $unitClass, Weapon $weapon) : Personnage {

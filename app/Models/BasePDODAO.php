@@ -4,6 +4,7 @@ namespace Models;
 
 use Config\Config;
 use PDO;
+use Services\LogService;
 
 class BasePDODAO {
     private ?PDO $db = null;
@@ -16,6 +17,12 @@ class BasePDODAO {
         return $this->db;
     }
 
+    /**
+     * Execute a SQL query and return the corresponding PDOStatement object.
+     * @param string $sql The SQL query to execute.
+     * @param array $params The parameters to bind to the query.
+     * @return PDOStatement The executed PDOStatement object.
+     */
     protected function execRequest(string $sql, ?array $params = null) {
         $stmt = $this->getPDO()->prepare($sql);
         $stmt->execute($params);
