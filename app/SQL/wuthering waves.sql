@@ -53,6 +53,12 @@ CREATE TABLE IF NOT EXISTS Personnage (
     CONSTRAINT FK_Personnage_Origin FOREIGN KEY (idOrigin) REFERENCES Origin(idOrigin)
 );
 
+DROP TABLE IF EXISTS Users;
+CREATE TABLE IF NOT EXISTS Users (
+   idUser VARCHAR(50) PRIMARY KEY,
+   username VARCHAR(50) NOT NULL,
+   hash_pwd VARCHAR(60) NOT NULL
+)
 
 -- Elements
 INSERT INTO Element_ (idElement, Name, color, url_image) VALUES
@@ -97,4 +103,26 @@ INSERT INTO Personnage (idPersonnage, Name, idElement, idUnitClass, idOrigin, id
 ('P7', 'Sanhua', 'E4', 'UC2', 'O2', 'W1', 4, 'https://www.prydwen.gg/static/f67966dd31af657ac8612d36006d5874/b26e2/senhua_card.webp'),
 ('P8', 'Chixia', 'E5', 'UC1', 'O2', 'W4', 4, 'https://www.prydwen.gg/static/689148c2dc5b0b38aeb2c75ca8b3ef65/b26e2/chixia_card.webp'),
 ('P9', 'Taoqi', 'E6', 'UC5', 'O2', 'W5', 4, 'https://www.prydwen.gg/static/9759a6ea13fefd1bc632650a0a657e8e/b26e2/taoqi_card.webp'),
-('P10', 'Danjin', 'E6', 'UC1', 'O2', 'W1', 4, 'https://www.prydwen.gg/static/431f962f5a8febb92f44ae9138aa5e01/b26e2/danjin_card.webp');
+('P10', 'Danjin', 'E6', 'UC1', 'O2', 'W1', 4, 'https://www.prydwen.gg/static/431f962f5a8febb92f44ae9138aa5e01/b26e2/danjin_card.webp'),
+('P13', 'Aalto', 'E3', 'UC2', null, 'W4', 4, 'https://www.prydwen.gg/static/28692b3a188f6b7b14a9d28aa90bf3c8/b26e2/aalto_card.webp'),
+('P14', 'Augusta', 'E2', 'UC1', null, 'W5', 5, 'https://www.prydwen.gg/static/2f1f1aad1444416525bca51ce823bff7/b26e2/aug_card.webp'),
+('P15', 'Brant', 'E5', 'UC1', null, 'W1', 5, 'https://www.prydwen.gg/static/30c84393d4f1fff8fcdb71ef6be8e090/b26e2/card_brant.webp'),
+('P16', 'Buling', 'E2', 'UC3', null, 'W2', 4, 'https://www.prydwen.gg/static/c260bb6ddea2fd1dbab4994867ae0524/b26e2/buling_card.webp'),
+('P17', 'Calcharo', 'E2', 'UC1', null, 'W5', 5, 'https://www.prydwen.gg/static/7b01c2f05825303762d3e6b9da538c7d/b26e2/kakarot_card.webp'),
+('P18', 'Camellya', 'E6', 'UC1', null, 'W1', 5, 'https://www.prydwen.gg/static/fa50106c1d7d6d2f02033da9c00628f1/b26e2/card_cam.webp'),
+('P19', 'Cantarella', 'E6', 'UC2', null, 'W2', 5, 'https://www.prydwen.gg/static/c62fb9a25dd8420d6fc03c1ca064dae2/b26e2/card_canta.webp'),
+('P20', 'Carlotta', 'E4', 'UC1', null, 'W4', 5, 'https://www.prydwen.gg/static/72a394e25463af4c5b9c309f516c9d17/b26e2/card_carlotta.webp'),
+('P21', 'Cartethyia', 'E3', 'UC1', null, 'W1', 5, 'https://www.prydwen.gg/static/f63677cedd1006e204f353b1f3c0af14/b26e2/cart_card.webp'),
+('P22', 'Changli', 'E5', 'UC2', null, 'W1', 5, 'https://www.prydwen.gg/static/7eb8b347a3aa1837164c79a5e520d268/b26e2/card_changli.webp'),
+('P23', 'Chisa', 'E6', 'UC3', null, 'W5', 5, 'https://www.prydwen.gg/static/1e11acd3163c86536e6c69aa7005424a/b26e2/chisa_card.webp'),
+('P24', 'Ciaccona', 'E3', 'UC2', null, 'W4', 5, 'https://www.prydwen.gg/static/b70837a5b18151413c72027b8ddfac64/b26e2/cia_card.webp'),
+('P25', 'Galbrena', 'E5', 'UC1', null, 'W4', 5, 'https://www.prydwen.gg/static/aa301f37c792e3d46dce891092c9cc0f/b26e2/gal_card.webp'),
+('P26', 'Iuno', 'E3', 'UC1', null, 'W3', 5, 'https://www.prydwen.gg/static/250723737f0c5c477d1e161f5991c9fc/b26e2/iuno_card.webp'),
+('P27', 'Junhsi', 'E1', 'UC1', null, 'W5', 5, 'https://www.prydwen.gg/static/136095b0f95ac4be3ddc7e2d585855bf/b26e2/jihni_card.webp'),
+('P28', 'Jiyan', 'E3', 'UC1', null, 'W5', 5, 'https://www.prydwen.gg/static/5020d60083afc09d2fb6bce4a35225bc/b26e2/jiyan_card.webp'),
+('P29', 'Lumi', 'E2', 'UC2', null, 'W5', 4, 'https://www.prydwen.gg/static/f25eefa86b00502ff430328006610ca2/b26e2/card_lumi.webp'),
+('P30', 'Lupa', 'E5', 'UC2', null, 'W5', 5, 'https://www.prydwen.gg/static/8b4af672cd0b39da9882c9aedab02893/b26e2/lupa_card.webp');
+
+INSERT INTO Users (idUser, username, hash_pwd) VALUES
+('6926fb719d874', 'test', '$2y$10$7SzQ6qozDqHnSyARJ9y1uul1PjamGOZFuJvaLdNJ.Ty0UzUceZici'),
+('6926fb719d879', 'admin', '$2y$10$LWxK2idwhpR9KLhJ9R5iw.g7gZmKjPmU9uHFm2PZFcEYTGsTEtPU2');
