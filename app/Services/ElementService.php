@@ -3,6 +3,7 @@
 namespace Services;
 
 use Models\Element;
+use Models\Color;
 use Models\ElementDAO;
 
 class ElementService{
@@ -36,7 +37,7 @@ class ElementService{
     }
 
     private function hydrate(array $data) : Element {
-        $Element = new Element($data['idElement'], $data['Name'], $data['url_image']);
+        $Element = new Element($data['idElement'], $data['Name'], Color::GRAY, $data['url_image']);
         return $Element;
     }
 }

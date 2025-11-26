@@ -25,9 +25,10 @@ class ElementDAO extends BasePDODAO{
     }
 
     public function create(Element $element){
-        $sql = "INSERT INTO element_ (idElement, Name, url_image) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO element_ (idElement, Name, color, url_image) VALUES (?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $element->getId(),
+            $element->getColor(),
             $element->getName(),
             $element->getUrlImg()
         ]);
@@ -35,9 +36,10 @@ class ElementDAO extends BasePDODAO{
     }
 
     public function edit(Element $element){
-        $sql = "UPDATE element_ SET Name = ?, url_image = ? WHERE idElement = ?";
+        $sql = "UPDATE element_ SET Name = ?, url_image = ?, color = ? WHERE idElement = ?";
         $stmt = $this->execRequest($sql, [
             $element->getName(),
+            $element->getColor(),
             $element->getUrlImg(),
             $element->getId()
         ]);

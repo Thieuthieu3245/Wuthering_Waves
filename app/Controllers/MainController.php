@@ -18,9 +18,12 @@ class MainController
     }
 
     public function index():void {
+        $listPersonnages = $this->service->getAll();
         echo $this->templates->render('home',[
             'gameName' => $this->GAME_NAME,
-            'listPersonnage' => $this->service->getAll()
+            'listPersonnage' => $listPersonnages
         ]);
     }
+
+
 }
