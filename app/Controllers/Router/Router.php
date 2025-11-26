@@ -10,6 +10,7 @@ use Controllers\Router\Routes\RouteAddAttribut;
 use Controllers\MainController;
 use Controllers\PersoController;
 use Controllers\AttributController;
+use Controllers\Router\Routes\RouteLogs;
 use League\Plates\Engine;
 
 class Router {
@@ -37,6 +38,7 @@ class Router {
         $this->routeList["del-perso"] = new RouteDelPerso($this->ctrlList["perso"]);
         $this->routeList["edit-perso"] = new RouteEditPerso($this->ctrlList["perso"]);
         $this->routeList["add-attribut"] = new RouteAddAttribut($this->ctrlList["attribut"]);
+        $this->routeList["logs"] = new RouteLogs($this->ctrlList["main"]);
     }
 
     /**

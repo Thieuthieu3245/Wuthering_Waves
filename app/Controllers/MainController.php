@@ -5,6 +5,7 @@ namespace Controllers;
 
 use League\Plates\Engine;
 use Models\Message;
+use Services\LogService;
 use Services\PersonnageService;
 
 class MainController 
@@ -29,6 +30,31 @@ class MainController
             'gameName' => $this->GAME_NAME,
             'message' => $message,
             'listPersonnage' => $listPersonnages
+        ]);
+    }
+
+    /**
+     * Affiche la page des logs avec le contenu du fichier log demandé ou le fichier log du jour si aucun fichier n'est spécifié
+     * @param string|null $fileName Le nom du fichier log à afficher, ou null pour afficher le fichier log du jour
+     * @return void
+     */
+    public function displayLogs(?string $fileName = null)
+    {
+        LogService::addLog(LogService::INFO, "Accès aux logs");
+        $logs = LogService::listLogs();
+        $content = null;
+
+        if (in_array($fileName, $logs)) {
+            $content = LogService::readLog($fileName);
+        }
+        else{
+            $content = LogService::readLog(LogService::getDailyLogFilename());
+        }
+
+        echo $this->templates->render('logs', [
+            'logs' => $logs,
+            'selectedFile' => $fileName,
+            'content' => $content
         ]);
     }
 

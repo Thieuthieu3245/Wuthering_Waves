@@ -10,6 +10,7 @@ use Models\Origin;
 use Models\Weapon;
 use Models\Personnage;
 use Services\ElementService;
+use Services\LogService;
 use Services\PersonnageService;
 use Services\WeaponService;
 use Services\UnitClassService;
@@ -91,15 +92,18 @@ class PersoController
     
             $result = $this->persoService->create($perso);
             if($result){
+                LogService::addLog(LogService::SUCCESS, "Personnage ajouté");
                 $message = new Message("Le personnage a bien été ajouté", Message::MESSAGE_COLOR_SUCCESS, "Succès");
                 $this->controller->index($message);
             }
             else {
+                LogService::addLog(LogService::ERROR, "Personnage non ajouté");
                 $message = new Message("Le personnage n'a pas pu être ajouté", Message::MESSAGE_COLOR_ERROR, "Echec");
                 $this->displayAddPerso(null, $message);
             }
         }
         catch (\Exception $e){
+            LogService::addLog(LogService::ERROR, "Une erreur est survenue : " . $e->getMessage());
             $message = new Message("Le personnage n'a pas pu être ajouté", Message::MESSAGE_COLOR_ERROR, "Echec");
             $this->displayAddPerso(null, $message);
         }
@@ -130,14 +134,17 @@ class PersoController
 
             $result = $this->persoService->edit($perso);
             if($result){
+                LogService::addLog(LogService::SUCCESS, "Personnage modifié");
                 $message = new Message("Le personnage a bien été modifié", Message::MESSAGE_COLOR_SUCCESS, "Succès");
                 $this->controller->index($message);
             }
             else {
+                LogService::addLog(LogService::ERROR, "Personnage non modifié");
                 $message = new Message("Le personnage n'a pas pu être modifié", Message::MESSAGE_COLOR_ERROR, "Echec");
                 $this->displayAddPerso($id, $message);
             }
         } catch (\Throwable $th) {
+            LogService::addLog(LogService::ERROR, "Une erreur est survenue : " . $th->getMessage());
             $message = new Message($th->getMessage(), Message::MESSAGE_COLOR_ERROR, "Echec");
             $this->displayAddPerso($id, $message);
         }
@@ -150,15 +157,19 @@ class PersoController
      */
     public function deletePerso(string $id) {
         try {
+            LogService::addLog(LogService::INFO, "Essai de suppression d'un personnage");
             $result = $this->persoService->delete($id);
             if($result){
+                LogService::addLog(LogService::SUCCESS, "Personnage supprimé");
                 $message = new Message("Le personnage a bien été supprimé", Message::MESSAGE_COLOR_SUCCESS, "Succès");
             }
             else {
+                LogService::addLog(LogService::ERROR, "Personnage non supprimé");
                 $message = new Message("Le personnage n'a pas pu être supprimé", Message::MESSAGE_COLOR_ERROR, "Echec");
             }
         }
         catch (\Throwable $th) {
+            LogService::addLog(LogService::ERROR, "Une erreur est survenue : " . $th->getMessage());
             $message = new Message($th->getMessage(), Message::MESSAGE_COLOR_ERROR, "Echec");
         }
         $this->controller->index($message);
