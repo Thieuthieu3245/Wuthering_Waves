@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS Wuthering_Waves;
-CREATE DATABASE IF NOT EXISTS Wuthering_Waves
+DROP DATABASE IF EXISTS wuthering_waves;
+CREATE DATABASE IF NOT EXISTS wuthering_waves
     DEFAULT CHARACTER SET = 'utf8mb4';
 
-USE Wuthering_Waves;
+USE wuthering_waves;
 
 DROP TABLE IF EXISTS Weapon;
 CREATE TABLE IF NOT EXISTS Weapon(
@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS Element_;
 CREATE TABLE IF NOT EXISTS Element_(
    idElement VARCHAR(50),
    Name VARCHAR(50) NOT NULL,
-   color VARCHAR(50) NOT NULL,
    url_image VARCHAR(255) NOT NULL,
    PRIMARY KEY(idElement)
 );
@@ -61,13 +60,13 @@ CREATE TABLE IF NOT EXISTS Users (
 );
 
 -- Elements
-INSERT INTO Element_ (idElement, Name, color, url_image) VALUES
-('E1', 'Spectro', 'YELLOW', 'https://www.prydwen.gg/static/411f51b647b7811db2212e4b6fe6bdd2/4e704/element_spectro.webp'),
-('E2', 'Electro', 'PURPLE', 'https://www.prydwen.gg/static/b3a899c0fab081fc3885a348751a9dc2/4e704/element_electro.webp'),
-('E3', 'Aero', 'CYAN', 'https://www.prydwen.gg/static/1f08458a83668aa52df1e440ce70f1a2/4e704/element_aero.webp'),
-('E4', 'Glacio', 'BLUE', 'https://www.prydwen.gg/static/4e2106b71dde592b9cdd87dbaa7f4b12/4e704/element_glacio.webp'),
-('E5', 'Fusion', 'ORANGE', 'https://www.prydwen.gg/static/12e0bf6eef91cfd7dd832b9814d4d09a/4e704/element_fusion.webp'),
-('E6', 'Havoc', 'MAGENTA', 'https://www.prydwen.gg/static/540bb4ed0d39932cf34d5a196d721f80/4e704/element_havoc.webp');
+INSERT INTO Element_ (idElement, Name, url_image) VALUES
+('E1', 'Spectro', 'https://www.prydwen.gg/static/411f51b647b7811db2212e4b6fe6bdd2/4e704/element_spectro.webp'),
+('E2', 'Electro', 'https://www.prydwen.gg/static/b3a899c0fab081fc3885a348751a9dc2/4e704/element_electro.webp'),
+('E3', 'Aero', 'https://www.prydwen.gg/static/1f08458a83668aa52df1e440ce70f1a2/4e704/element_aero.webp'),
+('E4', 'Glacio', 'https://www.prydwen.gg/static/4e2106b71dde592b9cdd87dbaa7f4b12/4e704/element_glacio.webp'),
+('E5', 'Fusion', 'https://www.prydwen.gg/static/12e0bf6eef91cfd7dd832b9814d4d09a/4e704/element_fusion.webp'),
+('E6', 'Havoc', 'https://www.prydwen.gg/static/540bb4ed0d39932cf34d5a196d721f80/4e704/element_havoc.webp');
 
 -- Weapons
 INSERT INTO Weapon (idWeapon, Name, url_image) VALUES

@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use League\Plates\Engine;
-use Models\Color;
 use Models\Element;
 use Models\Message;
 use Models\UnitClass;
@@ -38,11 +37,9 @@ class AttributController
      * @param Message|null $message The message to display (optional)
      */
     public function displayAddAttribut(?Message $message = null) {
-        //$listColors = Color::cases();
         echo $this->template->render('add-attribut', [
             'gameName' => $this->mainCtrl->GAME_NAME,
             'message' => $message
-        //    'listColors' => $listColors,
         ]);
     }
 
@@ -50,20 +47,19 @@ class AttributController
      * Choose the type of the attribut and add it
      * @param string $type The type of the attribut (element, weapon, unitClass, origin)
      * @param string $name The name of the attribut
-     * @param string|null $color The color of the attribut (optional)
      * @param string $urlImg The url of the image of the attribut
      * @return void
      * @throws \Exception If an error occurs during the operation
      */
-    public function addAttribut(string $type, string $name, ?string $color, string $urlImg) {
+    public function addAttribut(string $type, string $name, string $urlImg) {
         switch ($type) {
             case 'element':
-                $message = $this->addElement($name, $color, $urlImg);
+                $message = $this->addElement($name, $urlImg);
                 break;
-            case 'weapon':
+            case 'Weapon':
                 $message = $this->addWeapon($name, $urlImg);
                 break;
-            case 'unitClass':
+            case 'class':
                 $message = $this->addUnitClass($name, $urlImg);
                 break;
             case 'origin':
@@ -76,16 +72,14 @@ class AttributController
     /**
      * Add an element
      * @param string $name The name of the element.
-     * @param string|null $color The color of the element (optional).
      * @param string $urlImg The url of the image of the element.
      * @return Message The result of the operation.
      * @throws \Exception If an error occurs during the operation.
      */
-    private function addElement(string $name, ?string $color, string $urlImg) {
+    private function addElement(string $name, string $urlImg) {
         try{
             LogService::addLog(LogService::INFO, "Essai d'ajout d'un élément");
-            $color = new Color($color);
-            $element = new Element(null, $name, $color, $urlImg);
+            $element = new Element(null, $name, $urlImg);
             $result = $this->elementService->createElement($element);
             if($result){
                 LogService::addLog(LogService::SUCCESS, "Ajout d'un élément réussi");

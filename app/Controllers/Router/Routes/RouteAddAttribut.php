@@ -22,11 +22,9 @@ class RouteAddAttribut extends Route {
         try {
             $name = $this->getParam($params, 'name');
             $type = $this->getParam($params, 'type');
-            if($params['color'] === null) $color = '000000';
-            else $color = $this->getParam($params, 'color') ?? '000000';
             $urlImg = $this->getParam($params, 'urlImg');
 
-            $this->ctrl->addAttribut($type, $name, $color, $urlImg);
+            $this->ctrl->addAttribut($type, $name, $urlImg);
         } catch (\Exception $e) {
             $message = new Message($e->getMessage(), Message::MESSAGE_COLOR_ERROR, 'error');
             $this->ctrl->displayAddAttribut($message);

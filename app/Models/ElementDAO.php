@@ -44,10 +44,9 @@ class ElementDAO extends BasePDODAO{
      * @return bool True, the element has been created, false otherwise
      */
     public function create(Element $element) : bool {
-        $sql = "INSERT INTO Element_ (idElement, Name, color, url_image) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Element_ (idElement, Name, url_image) VALUES (?, ?, ?)";
         $stmt = $this->execRequest($sql, [
             $element->getId(),
-            $element->getColor(),
             $element->getName(),
             $element->getUrlImg()
         ]);
@@ -60,10 +59,9 @@ class ElementDAO extends BasePDODAO{
      * @return bool True if the element has been edited, false otherwise
      */
     public function edit(Element $element) : bool {
-        $sql = "UPDATE Element_ SET Name = ?, url_image = ?, color = ? WHERE idElement = ?";
+        $sql = "UPDATE Element_ SET Name = ?, url_image = ? WHERE idElement = ?";
         $stmt = $this->execRequest($sql, [
             $element->getName(),
-            $element->getColor(),
             $element->getUrlImg(),
             $element->getId()
         ]);

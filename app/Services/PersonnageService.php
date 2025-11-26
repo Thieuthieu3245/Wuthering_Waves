@@ -102,7 +102,7 @@ class PersonnageService
             $result = $this->personneDAO->delete($id);
         }
         catch(\Exception $e) {
-            throw new \Exception("Le personnage n'a pas pu étre modifié", 1);
+            throw new \Exception("Le personnage n'a pas pu étre supprimé", 1);
         }
         return $result;
     }
@@ -115,7 +115,7 @@ class PersonnageService
      */
     public function edit(Personnage $personnage) : bool {
         try{
-            $result = $this->personneDAO->create($personnage);
+            $result = $this->personneDAO->edit($personnage);
         }
         catch(\Exception $e) {
             throw new \Exception("Le personnage n'a pas pu étre modifié", 1);
