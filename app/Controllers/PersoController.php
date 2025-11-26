@@ -65,4 +65,18 @@ class PersoController
         $this->controller->index();
     }
 
+    public function editPerso(string $id, string $name, string $element, string $unitclass, string $weapon, int $rarity, string $urlImg, ?string $origin = null) {
+        $element = $this->elementService->getElementById($element);
+        $unitclass = $this->unitclassService->getUnitClassById($unitclass);
+        $weapon = $this->weaponService->getWeaponById($weapon);
+        $origin = $origin ? $this->originService->getOriginById($origin) : null;
+
+        $perso = new Personnage($id, $name, $element, $unitclass, $weapon, $rarity, $urlImg, $origin);
+        try {
+            $this->persoService->edit($perso);
+            $this->controller->index();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

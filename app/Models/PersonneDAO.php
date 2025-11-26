@@ -41,6 +41,8 @@ class PersonneDAO extends BasePDODAO {
             $personnage->getWeapon()->getId(),
             $personnage->getRarity(),
             $personnage->getOrigin()->getId() ?? null,
+            $personnage->getUrlImg(),
+            $personnage->getId(),
         ]);
         return $stmt !== false;
     }

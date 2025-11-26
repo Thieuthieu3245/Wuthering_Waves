@@ -64,7 +64,7 @@ class PersonnageService
     }
 
     public function edit(Personnage $personnage) : bool {
-        if(!$personnage->getId()) return false;
+        if(!$personnage->getId()) throw new \Exception("Personnage must have an id");
         return $this->personneDAO->edit($personnage);
     }
 
@@ -76,8 +76,8 @@ class PersonnageService
             $unitClass,
             $weapon,
             $data['rarity'],
+            $data['url_image'] ?? '',
             $origin,
-            $data['url_image'] ?? ''
         );
     }
 }
