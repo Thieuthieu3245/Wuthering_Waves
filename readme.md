@@ -36,7 +36,7 @@ php -S 127.0.0.1:8000
 
 Le site web sera accessible sur [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-Même si la fonction n'est pas terminé, des utilisateurs en base ont été créé avec les identifiants suivant :
+Même si la fonctionnalité n'est pas terminé, des utilisateurs en base ont été créé avec les identifiants suivant :
 
 - `test`, `test`
 - `admin`, `admin`
