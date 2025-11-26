@@ -6,6 +6,7 @@ use Controllers\MainController;
 use Controllers\Router\Route;
 use Controllers\PersoController;
 use League\Plates\Engine;
+use Models\Message;
 
 class RouteDelPerso extends Route
 {
@@ -16,12 +17,22 @@ class RouteDelPerso extends Route
     }
 
     public function get($params) {
-        $id = $this->getParam($params, 'id');
-        $this->ctrl->deletePerso($id);
+        try {
+            $id = $this->getParam($params, 'id');
+            $this->ctrl->deletePerso($id);
+        } catch (\Exception $e) {
+            $message = new Message($e->getMessage(), Message::MESSAGE_COLOR_ERROR, 'error');
+            $this->ctrl->index($message);
+        }
     }
 
     public function post($params) {
-        $id = $this->getParam($params, 'id');
-        $this->ctrl->deletePerso($id);
+        try {
+            $id = $this->getParam($params, 'id');
+            $this->ctrl->deletePerso($id);
+        } catch (\Exception $e) {
+            $message = new Message($e->getMessage(), Message::MESSAGE_COLOR_ERROR, 'error');
+            $this->ctrl->index($message);
+        }
     }
 }

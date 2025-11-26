@@ -4,6 +4,7 @@ namespace Controllers\Router\Routes;
 
 use Controllers\Router\Route;
 use Controllers\PersoController;
+use Models\Message;
 
 class RouteAddPerso extends Route {
 
@@ -18,6 +19,7 @@ class RouteAddPerso extends Route {
     }
 
     public function post($params) {
+        try {
             $name = $this->getParam($params, 'name');
             $rarity = $this->getParam($params, 'rarity');
             $img = $this->getParam($params, 'img');
@@ -27,5 +29,12 @@ class RouteAddPerso extends Route {
             $weaponId = $this->getParam($params, 'weapon');
     
             $this->ctrl->addPerso($name, $elementId, $unitClassId, $weaponId, $rarity, $img, $originId);
+        }
+
+        catch (\Exception $e) {
+            $message = new Message($e->getMessage(), Message::MESSAGE_COLOR_ERROR, 'error');
+            $this->ctrl->displayAddPerso(null, $message);
+        }
+
     }
 }

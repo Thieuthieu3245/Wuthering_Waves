@@ -4,6 +4,7 @@
 namespace Controllers;
 
 use League\Plates\Engine;
+use Models\Message;
 use Services\PersonnageService;
 
 class MainController 
@@ -21,6 +22,7 @@ class MainController
         $listPersonnages = $this->service->getAll();
         echo $this->templates->render('home',[
             'gameName' => $this->GAME_NAME,
+            'message' => $message,
             'listPersonnage' => $listPersonnages
         ]);
     }

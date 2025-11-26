@@ -6,6 +6,7 @@ use Controllers\MainController;
 use Controllers\PersoController;
 use League\Plates\Engine;
 use Controllers\Router\Route;
+use Models\Message;
 
 class RouteEditPerso extends Route
 {
@@ -34,7 +35,8 @@ class RouteEditPerso extends Route
 
             $this->ctrl->editPerso($id, $name, $elementId, $unitClassId, $weaponId, $rarity, $img, $originId);
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $message = new Message($e->getMessage(), Message::MESSAGE_COLOR_ERROR, 'error');
+            $this->ctrl->displayAddPerso($id, $message);
         }
     }
 }

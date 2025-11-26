@@ -17,10 +17,10 @@ class RouteIndex extends Route {
     }
 
     public function post($params) {
-        return $this->ctrl->index($params);
+        return $this->ctrl->index();
     }
 
     public function get($params) {
-        return $this->ctrl->index($params);
+        return $this->ctrl->index();
     }
 }

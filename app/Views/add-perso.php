@@ -2,13 +2,14 @@
     $isEdit = ($perso->getId() !== null);
 
     $this->layout('template', [
+        'message'=>$message,
         'title' => $isEdit ? 'Modifier un personnage' : 'Ajouter un personnage'
     ]);
 ?>
 
 <h1><?= $isEdit ? 'Modifier un personnage' : 'Ajouter un personnage' ?></h1>
 
-<form action="index.php?action=edit-perso" method="post" class="form-add-perso">
+<form action="index.php?action=<?= $isEdit ? 'edit-perso' : 'add-perso' ?>" method="post" class="form-add-perso">
 
     <?php if ($isEdit): ?>
         <input type="hidden" id="id" name="id" value="<?= $perso->getId() ?>">
@@ -36,12 +37,7 @@
     <!-- Image URL -->
     <div class="form-group">
         <label for="img">Image (URL)</label>
-        <input 
-            type="text" 
-            id="img" 
-            name="img"
-            value="<?= $perso->getUrlImg() ?>"
-        >
+        <input type="text" id="img" name="img" value="<?= $perso->getUrlImg() ?>">
     </div>
 
     <!-- Élément -->
@@ -61,10 +57,7 @@
         <label for="weapon">Arme</label>
         <select id="weapon" name="weapon" required>
             <?php foreach ($listWeapons as $wp): ?>
-                <option 
-                    value="<?= $wp->getId() ?>"
-                    <?= $perso->getWeapon()->getId() == $wp->getId() ? 'selected' : '' ?>
-                >
+                <option value="<?= $wp->getId() ?>" <?= $perso->getWeapon()->getId() == $wp->getId() ? 'selected' : '' ?>>
                     <?= $wp->getName() ?>
                 </option>
             <?php endforeach; ?>
@@ -76,10 +69,7 @@
         <label for="origin">Origine</label>
         <select id="origin" name="origin" required>
             <?php foreach ($listOrigins as $orig): ?>
-                <option 
-                    value="<?= $orig->getId() ?>"
-                    <?= $perso->getOrigin() && $perso->getOrigin()->getId() == $orig->getId() ? 'selected' : '' ?>
-                >
+                <option value="<?= $orig->getId() ?>" <?= $perso->getOrigin() && $perso->getOrigin()->getId() == $orig->getId() ? 'selected' : '' ?>>
                     <?= $orig->getName() ?>
                 </option>
             <?php endforeach; ?>
@@ -91,10 +81,7 @@
         <label for="unitclass">Classe</label>
         <select id="unitclass" name="class" required>
             <?php foreach ($listClasses as $cl): ?>
-                <option 
-                    value="<?= $cl->getId() ?>"
-                    <?= $perso->getUnitClass()->getId() == $cl->getId() ? 'selected' : '' ?>
-                >
+                <option value="<?= $cl->getId() ?>" <?= $perso->getUnitClass()->getId() == $cl->getId() ? 'selected' : '' ?>>
                     <?= $cl->getName() ?>
                 </option>
             <?php endforeach; ?>

@@ -1,10 +1,8 @@
 <?php
-    $this->layout('template',['title'=>$gameName]);
+    $this->layout('template',['title'=>$gameName, 'message'=>$message]);
 ?>
 
 <h1>Collection <?= $this->e($gameName) ?></h1>
-
-<a class="btn" href="index.php?action=add-perso">Ajouter un personnage</a>
 
 <div class="personnage-grid">
   <?php foreach ($listPersonnage as $perso): ?>
