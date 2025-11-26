@@ -6,8 +6,10 @@ use Controllers\Router\Routes\RouteIndex;
 use Controllers\Router\Routes\RouteAddPerso;
 use Controllers\Router\Routes\RouteDelPerso;
 use Controllers\Router\Routes\RouteEditPerso;
+use Controllers\Router\Routes\RouteAddAttribut;
 use Controllers\MainController;
 use Controllers\PersoController;
+use Controllers\AttributController;
 use League\Plates\Engine;
 
 class Router {
@@ -26,6 +28,7 @@ class Router {
     private function createControllerList() {
         $this->ctrlList["main"] = new MainController($this->template);
         $this->ctrlList["perso"] = new PersoController($this->template);
+        $this->ctrlList["attribut"] = new AttributController($this->template);
     }
 
     private function createRouteList() {
@@ -33,8 +36,15 @@ class Router {
         $this->routeList["add-perso"] = new RouteAddPerso($this->ctrlList["perso"]);
         $this->routeList["del-perso"] = new RouteDelPerso($this->ctrlList["perso"]);
         $this->routeList["edit-perso"] = new RouteEditPerso($this->ctrlList["perso"]);
+        $this->routeList["add-attribut"] = new RouteAddAttribut($this->ctrlList["attribut"]);
     }
 
+    /**
+     * Routes the request to the correct controller action.
+     * @param array $get The GET parameters of the request.
+     * @param array $post The POST parameters of the request.
+     * @return void
+     */
     public function routing($get, $post) {
         $action = $get[$this->action_key] ?? "index";
 
