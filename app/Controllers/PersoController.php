@@ -79,4 +79,9 @@ class PersoController
             throw $th;
         }
     }
+
+    public function deletePerso(string $id) {
+        $this->persoService->delete($id);
+        $this->controller->index();
+    }
 }

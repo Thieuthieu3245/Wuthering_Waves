@@ -31,6 +31,7 @@ class Router {
     private function createRouteList() {
         $this->routeList["index"] = new RouteIndex($this->ctrlList["main"]);
         $this->routeList["add-perso"] = new RouteAddPerso($this->ctrlList["perso"]);
+        $this->routeList["del-perso"] = new RouteDelPerso($this->ctrlList["perso"]);
         $this->routeList["edit-perso"] = new RouteEditPerso($this->ctrlList["perso"]);
     }
 
